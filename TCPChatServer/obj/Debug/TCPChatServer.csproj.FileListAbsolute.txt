@@ -1,0 +1,6 @@
+c:\users\aleksei\documents\visual studio 2012\Projects\TCPChat\TCPChatServer\bin\Debug\TCPChatServer.exe.config
+c:\users\aleksei\documents\visual studio 2012\Projects\TCPChat\TCPChatServer\bin\Debug\TCPChatServer.exe
+c:\users\aleksei\documents\visual studio 2012\Projects\TCPChat\TCPChatServer\bin\Debug\TCPChatServer.pdb
+c:\users\aleksei\documents\visual studio 2012\Projects\TCPChat\TCPChatServer\obj\Debug\TCPChatServer.csprojResolveAssemblyReference.cache
+c:\users\aleksei\documents\visual studio 2012\Projects\TCPChat\TCPChatServer\obj\Debug\TCPChatServer.exe
+c:\users\aleksei\documents\visual studio 2012\Projects\TCPChat\TCPChatServer\obj\Debug\TCPChatServer.pdb
