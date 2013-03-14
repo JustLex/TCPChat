@@ -57,8 +57,8 @@ namespace Chat_Client
                         client.Receive(bytes);
                         if (bytes.Length != 0)
                         {
-                            string data = Encoding.UTF8.GetString(bytes) + "\n\n";
-                            outText.Invoke(new Del((s) => outText.Text += s), data);
+                            string data = Encoding.UTF8.GetString(bytes);
+                            outText.Invoke(new Del((s) => outText.Text += s + "\n\r\n"), data);
                         }
                         
                     }
@@ -66,6 +66,7 @@ namespace Chat_Client
                 }
             });
             th.Start();
+            th.IsBackground = true;
             threads.Add(th);
         }
 
