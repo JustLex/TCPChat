@@ -1,0 +1,10 @@
+C:\Users\Aleksei\Documents\GitHub\TCPChat\TCPChatClient\bin\Debug\Chat_Client.exe.config
+C:\Users\Aleksei\Documents\GitHub\TCPChat\TCPChatClient\bin\Debug\Chat_Client.exe
+C:\Users\Aleksei\Documents\GitHub\TCPChat\TCPChatClient\bin\Debug\Chat_Client.pdb
+C:\Users\Aleksei\Documents\GitHub\TCPChat\TCPChatClient\obj\Debug\TCPChatClient.csprojResolveAssemblyReference.cache
+C:\Users\Aleksei\Documents\GitHub\TCPChat\TCPChatClient\obj\Debug\Chat_Client.MainForm.resources
+C:\Users\Aleksei\Documents\GitHub\TCPChat\TCPChatClient\obj\Debug\Chat_Client.OptionForm.resources
+C:\Users\Aleksei\Documents\GitHub\TCPChat\TCPChatClient\obj\Debug\Chat_Client.Properties.Resources.resources
+C:\Users\Aleksei\Documents\GitHub\TCPChat\TCPChatClient\obj\Debug\TCPChatClient.csproj.GenerateResource.Cache
+C:\Users\Aleksei\Documents\GitHub\TCPChat\TCPChatClient\obj\Debug\Chat_Client.exe
+C:\Users\Aleksei\Documents\GitHub\TCPChat\TCPChatClient\obj\Debug\Chat_Client.pdb

@@ -26,9 +26,11 @@ namespace Chat_Client
         // Адрес сервера
         static private IPAddress ip = IPAddress.Parse("127.0.0.1");
         // Порт, по которому будем присоединяться
-        static private int port = 1991;
+        static private int port = 6667;
         // Список потоков
         static private List<Thread> threads = new List<Thread>();
+        // Делегат для доступа к textBox контроллам
+        delegate void Del(string text);
 
         void Connect()
         {
@@ -55,8 +57,8 @@ namespace Chat_Client
                         client.Receive(bytes);
                         if (bytes.Length != 0)
                         {
-                            string data = Encoding.UTF8.GetString(bytes);
-                            outText.Text = outText.Text + data + '\n';
+                            string data = Encoding.UTF8.GetString(bytes) + "\n\n";
+                            outText.Invoke(new Del((s) => outText.Text += s), data);
                         }
                         
                     }
@@ -84,8 +86,8 @@ namespace Chat_Client
         {
             InitializeComponent();
             
-            statusConnection.Text = "Connected: Demo Version";
-
+            statusConnection.Text = "Connected: Local Version";
+            
             prop = new propeties();
             if (File.Exists("propeties.cfg") == false)
             {
@@ -103,18 +105,12 @@ namespace Chat_Client
                 prop = (propeties)reader.Deserialize(file);
                 file.Close();
             }
+            Connect();
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-
-                string message;
-                message = messageBox.Text;
-                SendMessage(message);
-                outText.Text = outText.Text + message + '\n';
-                messageBox.Text = "";
-                
-
+            compileMessage();
         }
 
         static private void SendMessage(string message)
@@ -122,10 +118,12 @@ namespace Chat_Client
             Sender(message);
         }
 
-        static private void Listner()
-        {
-            
-        }
+        private void compileMessage() {
+            string message;
+            message = messageBox.Text;
+            SendMessage(message);
+            messageBox.Text = "";
+        } 
 
         private void menuOptions_Click(object sender, EventArgs e)
         {
@@ -137,12 +135,7 @@ namespace Chat_Client
         {
             if (e.KeyChar == 13)
             {
-                string message;
-                message = messageBox.Text;
-                SendMessage(message);
-                outText.Text = outText.Text + message + '\n';
-                messageBox.Text = "";
-                
+                compileMessage();
             }
         }
 

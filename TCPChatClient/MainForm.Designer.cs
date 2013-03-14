@@ -89,7 +89,7 @@
             // statusConnection
             // 
             this.statusConnection.Name = "statusConnection";
-            this.statusConnection.Size = new System.Drawing.Size(63, 17);
+            this.statusConnection.Size = new System.Drawing.Size(68, 17);
             this.statusConnection.Text = "Connected:";
             // 
             // menu
@@ -107,7 +107,7 @@
             // menuOptions
             // 
             this.menuOptions.Name = "menuOptions";
-            this.menuOptions.Size = new System.Drawing.Size(56, 20);
+            this.menuOptions.Size = new System.Drawing.Size(61, 20);
             this.menuOptions.Text = "Options";
             this.menuOptions.Click += new System.EventHandler(this.menuOptions_Click);
             // 
@@ -144,13 +144,13 @@
 
         private System.Windows.Forms.Button sendButton;
         private System.Windows.Forms.TextBox messageBox;
-        private System.Windows.Forms.RichTextBox outText;
         private System.Windows.Forms.StatusStrip stsusStrip;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
         private System.Windows.Forms.ToolStripStatusLabel statusConnection;
         private System.Windows.Forms.MenuStrip menu;
         private System.Windows.Forms.ToolStripMenuItem menuOptions;
         private System.Windows.Forms.ToolStripMenuItem menuExit;
+        public System.Windows.Forms.RichTextBox outText;
     }
 }
 
