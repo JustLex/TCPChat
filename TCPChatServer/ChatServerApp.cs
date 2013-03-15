@@ -1,90 +1,81 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using System.Net;
 using System.Net.Sockets;
-using System.Text;
+using System.IO;
+using System.Collections;
 using System.Threading;
-using System.Threading.Tasks;
 
 namespace TCPChatServer
 {
     class ChatServerApp
     {
-        public bool isServerRunning;
-        private ArrayList clients;
-        private Socket serverSocket;
-        private IPEndPoint serverPoint;
-        private static int port = 6667;
-        private static List<Thread> clientThreads = new List<Thread>();
+        static Server server = new Server();
+        enum commands {exit, start};
+        delegate void command();
 
-        public void startServer()
+        static void Main(string[] args)
         {
-            clients = new ArrayList();
-            isServerRunning = true;
-            serverSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-            serverPoint = new IPEndPoint(IPAddress.Any, port);
-
-            serverSocket.Bind(serverPoint);
-            serverSocket.Listen(20);
-            startSocketThreads();
-        }
-
-       private void startSocketThreads()
-       {
-        Thread processConnestions = new Thread(new ThreadStart(processSocket));
-        processConnestions.IsBackground = true;
-        processConnestions.Start();
-       }
-
-       private void processSocket()
-       {
-       while (isServerRunning)
-       {
-           Socket clientSocket = serverSocket.Accept();
-           if (!clients.Contains(clientSocket))
-           {
-               clients.Add(clientSocket);
-               Thread clientThread = new Thread(delegate() { messageManager(clientSocket); });
-               clientThreads.Add(clientThread);
-               clientThread.IsBackground = true;
-               clientThread.Start();
-           }
-           }
-        }
-
-        private void messageManager(Socket client)
-        {
-            try
-            {
-                while (isServerRunning)
-                {
-                    byte[] buffer = new byte[1024];
-                    client.Receive(buffer);
-                    if (buffer.Length != 0)
-                    {
-                        foreach (Socket reciever in clients)
-                        {
-                            sendMessage(reciever, buffer);
-                        }
-                    }
+            Console.WriteLine("TCPChat server v0\nType \"help\" for list of commands");
+            string command = "";
+            while (command != "exit") {
+                Console.WriteLine("Waiting for command");
+                command = Console.ReadLine();
+                switch (command) {
+                    case ("start"): { executeCommand( new command(startServer) ) ; break; }
+                    case ("exit"): { executeCommand(new command(exitServer)); break; }
+                    case ("status"): { executeCommand(new command(printStatus)); break; }
+                    case ("pause"): { break; }
+                    case ("restart"): { break;}
+                    case ("help"): { executeCommand(new command(showHelp)); break; }
+                    default: { Console.WriteLine("Unknown command"); break; }
                 }
             }
-            catch
+        }
+
+        static private void executeCommand(Delegate command) {
+            Console.WriteLine("--------------------------------------------");
+            command.DynamicInvoke();
+            Console.WriteLine("--------------------------------------------");
+        }
+
+        static private void showHelp() { 
+            Console.WriteLine("List of commands\n"+
+                "start\n"+
+                "exit\n"+
+                "help\n"+
+                "status");
+        }
+
+        static private void startServer() {
+            if (server.isServerRunning)
             {
-               clients.Remove(client);
-               clientThreads.Remove(Thread.CurrentThread);
-           }
-       }
+                Console.WriteLine("Server is already running");
+            }
+            else {
+                Console.WriteLine("Starting server...");
+                server.startServer();
+                Console.WriteLine(server.isServerRunning ? "Server started" : "Server failed to start");
+            }
+        }
 
-       void sendMessage(Socket reciever, byte[] message)
-       {
-           reciever.Send(message);
-       }
+        static private void exitServer() {
+            Console.WriteLine("Server is shutting down...");
+            server.stopServer();
+            Console.WriteLine("Goodbye");
+        }
 
-       public void stopServer() {
-           isServerRunning = false;
-       }
+        static void printStatus() {
+            if (server.isServerRunning)
+            {
+                Console.WriteLine("Server online");
+            }
+            else {
+                Console.WriteLine("Server offline");
+            }
+        }
     }
 }
