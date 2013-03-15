@@ -12,6 +12,7 @@ namespace TCPChatServer
 {
     class Server
     {
+        const string SHUTDOWN_CMD = "";
         public bool isServerRunning;
         private ArrayList clients;
         private Socket serverSocket;
@@ -64,10 +65,7 @@ namespace TCPChatServer
                     client.Receive(buffer);
                     if (buffer.Length != 0)
                     {
-                        foreach (Socket reciever in clients)
-                        {
-                            sendMessage(reciever, buffer);
-                        }
+                        broadcastMsg(buffer);
                     }
                 }
             }
@@ -77,6 +75,13 @@ namespace TCPChatServer
                clientThreads.Remove(Thread.CurrentThread);
            }
        }
+
+        private void broadcastMsg(byte[] msg) {
+            foreach (Socket reciever in clients)
+            {
+                sendMessage(reciever, msg);
+            }
+        }
 
        void sendMessage(Socket reciever, byte[] message)
        {

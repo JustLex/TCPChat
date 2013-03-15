@@ -8,11 +8,24 @@ using System.Net.Sockets;
 using System.IO;
 using System.Collections;
 using System.Threading;
+using System.Runtime.InteropServices;
 
 namespace TCPChatServer
 {
     class ChatServerApp
-    {
+    {          
+        public delegate bool HandlerRoutine(CtrlTypes CtrlType);
+        [DllImport("Kernel32")]
+        public static extern bool SetConsoleCtrlHandler(HandlerRoutine Handler, bool Add);
+        public enum CtrlTypes
+        {
+            CTRL_C_EVENT = 0,
+            CTRL_BREAK_EVENT,
+            CTRL_CLOSE_EVENT,
+            CTRL_LOGOFF_EVENT = 5,
+            CTRL_SHUTDOWN_EVENT
+        }
+
         static Server server = new Server();
         enum commands {exit, start};
         delegate void command();
@@ -20,6 +33,7 @@ namespace TCPChatServer
         static void Main(string[] args)
         {
             Console.WriteLine("TCPChat server v0\nType \"help\" for list of commands");
+            SetConsoleCtrlHandler(consoleOnExit, true);
             string command = "";
             while (command != "exit") {
                 Console.WriteLine("Waiting for command");
@@ -76,6 +90,12 @@ namespace TCPChatServer
             else {
                 Console.WriteLine("Server offline");
             }
+        }
+
+        private static bool consoleOnExit(CtrlTypes ctrlType)
+        {
+            exitServer();
+            return true;
         }
     }
 }

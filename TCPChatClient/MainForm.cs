@@ -88,6 +88,10 @@ namespace Chat_Client
                 client.closeConnection();
                 tryConnection();
             }
+            if (!client.isClientRunning)
+            {
+                tryConnection();
+            }
         }
 
         private void menuExit_Click(object sender, EventArgs e)
