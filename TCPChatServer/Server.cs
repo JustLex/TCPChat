@@ -13,7 +13,7 @@ namespace TCPChatServer
 {
     class Server
     {
-        static ChatServer server = new ChatServer();
+        static ChatServerApp server = new ChatServerApp();
         enum commands {exit, start};
         delegate void command();
 

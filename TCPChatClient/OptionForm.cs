@@ -13,7 +13,7 @@ namespace Chat_Client
 {
     public partial class OptionForm : Form
     {
-        static propeties prop;
+        public static Propeties prop;
         public OptionForm()
         {
             InitializeComponent();
@@ -21,10 +21,10 @@ namespace Chat_Client
 
         private void OptionForm_Load(object sender, EventArgs e)
         {
-            prop = new propeties();
-            System.Xml.Serialization.XmlSerializer reader = new System.Xml.Serialization.XmlSerializer(typeof(propeties));
+            prop = new Propeties();
+            System.Xml.Serialization.XmlSerializer reader = new System.Xml.Serialization.XmlSerializer(typeof(Propeties));
             System.IO.StreamReader file = new System.IO.StreamReader("propeties.cfg");
-            prop = (propeties)reader.Deserialize(file);
+            prop = (Propeties)reader.Deserialize(file);
             file.Close();
             serverTextBox.Text = prop.server;
             nicknameTextBox.Text = prop.nickname;
@@ -35,7 +35,7 @@ namespace Chat_Client
             prop.server = serverTextBox.Text;
             prop.nickname = nicknameTextBox.Text;
 
-            System.Xml.Serialization.XmlSerializer writer = new System.Xml.Serialization.XmlSerializer(typeof(propeties));
+            System.Xml.Serialization.XmlSerializer writer = new System.Xml.Serialization.XmlSerializer(typeof(Propeties));
             System.IO.StreamWriter file = new System.IO.StreamWriter("propeties.cfg");
             writer.Serialize(file, prop);
             file.Close();

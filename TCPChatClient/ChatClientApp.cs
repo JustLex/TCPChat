@@ -6,7 +6,7 @@ using System.Windows.Forms;
 
 namespace Chat_Client
 {
-    static class Program
+    static class ChatClientApp
     {
         /// <summary>
         /// Главная точка входа для приложения.

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Chat_Client
 {
-    public class propeties
+    public class Propeties
     {
         public string server;
         public string nickname;

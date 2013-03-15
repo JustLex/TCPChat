@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace TCPChatServer
 {
-    class ChatServer
+    class ChatServerApp
     {
         public bool isServerRunning;
         private ArrayList clients;
