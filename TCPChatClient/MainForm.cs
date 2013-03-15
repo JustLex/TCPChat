@@ -8,7 +8,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
-using System.IO.Pipes;
 using System.Net;
 using System.Net.Sockets;
 using System.Threading;
@@ -20,7 +19,7 @@ namespace Chat_Client
     {
 
         static private Client client = new Client();
-        static public Propeties prop;
+        static public Parameters prop;
         // Список потоков
         static private List<Thread> threads = new List<Thread>();
         // Делегат для доступа к textBox контроллам
@@ -28,29 +27,20 @@ namespace Chat_Client
 
         public MainForm()
         {
-            InitializeComponent();
+            InitializeComponent();            
+            prop = Parameters.deserializeParams();
+            tryConnection();
+        }
 
-            statusConnection.Text = "Connected: Local Version";
-
-            prop = new Propeties();
-            if (File.Exists("propeties.cfg") == false)
-            {
-                System.Xml.Serialization.XmlSerializer writer = new System.Xml.Serialization.XmlSerializer(typeof(Propeties));
-                System.IO.StreamWriter file = new System.IO.StreamWriter("propeties.cfg");
-                prop.server = "127.0.0.1";
-                prop.nickname = "Player";
-                writer.Serialize(file, prop);
-                file.Close();
-            }
-            else
-            {
-                System.Xml.Serialization.XmlSerializer reader = new System.Xml.Serialization.XmlSerializer(typeof(Propeties));
-                System.IO.StreamReader file = new System.IO.StreamReader("propeties.cfg");
-                prop = (Propeties)reader.Deserialize(file);
-                file.Close();
-            }
-            client.initiateClient();
-            Receiver();
+        void tryConnection() {
+            statusConnection.Text = "Connecting...";
+            Thread th = new Thread(delegate() {
+                client.initiateClient(prop.server, prop.port);
+                statusConnection.Text = client.isClientRunning ? "Connected: Local version" : "Failed to connect";
+                Receiver();
+            });
+            th.IsBackground = true;
+            th.Start();
         }
 
          void Receiver()
@@ -69,7 +59,7 @@ namespace Chat_Client
             threads.Add(th);
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void sendButtonClick(object sender, EventArgs e)
         {
             compileMessage();
         }
@@ -83,16 +73,21 @@ namespace Chat_Client
         }
 
         private void compileMessage() {
-            string message;
-            message =prop.nickname + ": " + messageBox.Text;
-            messageBox.Text = "";
-            client.sendMessage(message);
+            if (client.isClientRunning)
+            {
+                client.sendMessage(messageBox.Text, prop.nickname);
+                messageBox.Clear();
+            }
         } 
 
         private void menuOptions_Click(object sender, EventArgs e)
         {
-            OptionForm opForm = new OptionForm();
-            opForm.ShowDialog();
+            string oldIP = prop.server;
+            OptionForm opForm = new OptionForm(prop);
+            if (opForm.ShowDialog() == DialogResult.OK && prop.server != oldIP) {
+                client.closeConnection();
+                tryConnection();
+            }
         }
 
         private void menuExit_Click(object sender, EventArgs e)

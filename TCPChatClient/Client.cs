@@ -11,25 +11,29 @@ namespace Chat_Client
     class Client
     {
         public Socket clientSocket;
-        public bool isClientRunning;
-        private int port = 6667;
+        public bool isClientRunning = false;
         private IPAddress clientIP;
+        private int port;
 
-        public void initiateClient() {
+        public void initiateClient(string ip, int port) {
             try
             {
-                isClientRunning = true;
-                clientIP = IPAddress.Parse("127.0.0.1");
+                clientIP = IPAddress.Parse(ip);
+                this.port = port;
                 clientSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
                 clientSocket.Connect(clientIP, port);
+                isClientRunning = true;
             }
-            catch { }
+            catch {
+                isClientRunning = false;
+            }
         }
 
-        public void sendMessage(string msg){
+        public void sendMessage(string msg, string name){
             try
             {
                 byte[] bytes = new byte[1024];
+                msg = name + ": " + msg;
                 bytes = Encoding.UTF8.GetBytes(msg);
                 clientSocket.Send(bytes);
             }
@@ -49,6 +53,11 @@ namespace Chat_Client
             }
             catch { }
             return null;
+        }
+
+        public void closeConnection() {
+            isClientRunning = false;
+            clientSocket.Close();
         }
     }
 }

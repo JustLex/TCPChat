@@ -8,38 +8,43 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
+using System.Net;
 
 namespace Chat_Client
 {
     public partial class OptionForm : Form
     {
-        public static Propeties prop;
-        public OptionForm()
+        public static Parameters prop;
+        private string oldIP;
+
+        public OptionForm(Parameters param)
         {
             InitializeComponent();
+            prop = param;
         }
 
         private void OptionForm_Load(object sender, EventArgs e)
         {
-            prop = new Propeties();
-            System.Xml.Serialization.XmlSerializer reader = new System.Xml.Serialization.XmlSerializer(typeof(Propeties));
-            System.IO.StreamReader file = new System.IO.StreamReader("propeties.cfg");
-            prop = (Propeties)reader.Deserialize(file);
-            file.Close();
             serverTextBox.Text = prop.server;
             nicknameTextBox.Text = prop.nickname;
+            oldIP = prop.server;
         }
 
         private void okButton_Click(object sender, EventArgs e)
         {
-            prop.server = serverTextBox.Text;
-            prop.nickname = nicknameTextBox.Text;
-
-            System.Xml.Serialization.XmlSerializer writer = new System.Xml.Serialization.XmlSerializer(typeof(Propeties));
-            System.IO.StreamWriter file = new System.IO.StreamWriter("propeties.cfg");
-            writer.Serialize(file, prop);
-            file.Close();
-            DialogResult = DialogResult.OK;
+            IPAddress tryIp;
+            if (IPAddress.TryParse(serverTextBox.Text, out tryIp))
+            {
+                prop.server = serverTextBox.Text;
+                prop.nickname = nicknameTextBox.Text;
+                oldIP = prop.server;
+                prop.serializeParams();
+                DialogResult = DialogResult.OK;
+            }
+            else {
+                MessageBox.Show("Invalid IP address");
+                serverTextBox.Text = oldIP;
+            }
         }
     }
 }
