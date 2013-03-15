@@ -69,6 +69,7 @@
             this.outText.Size = new System.Drawing.Size(336, 261);
             this.outText.TabIndex = 2;
             this.outText.Text = "";
+            this.outText.WordWrap = false;
             // 
             // stsusStrip
             // 
