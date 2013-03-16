@@ -30,6 +30,8 @@
         {
             this.okButton = new System.Windows.Forms.Button();
             this.ServerTab = new System.Windows.Forms.TabPage();
+            this.portTextBox = new System.Windows.Forms.TextBox();
+            this.portLabel = new System.Windows.Forms.Label();
             this.serverTextBox = new System.Windows.Forms.TextBox();
             this.serverLabel = new System.Windows.Forms.Label();
             this.tabControl = new System.Windows.Forms.TabControl();
@@ -37,8 +39,6 @@
             this.nicknameTextBox = new System.Windows.Forms.TextBox();
             this.nicknameLabel = new System.Windows.Forms.Label();
             this.cancelButton = new System.Windows.Forms.Button();
-            this.portLabel = new System.Windows.Forms.Label();
-            this.portTextBox = new System.Windows.Forms.TextBox();
             this.ServerTab.SuspendLayout();
             this.tabControl.SuspendLayout();
             this.personTab.SuspendLayout();
@@ -68,11 +68,27 @@
             this.ServerTab.Text = "Server";
             this.ServerTab.UseVisualStyleBackColor = true;
             // 
+            // portTextBox
+            // 
+            this.portTextBox.Location = new System.Drawing.Point(184, 6);
+            this.portTextBox.Name = "portTextBox";
+            this.portTextBox.Size = new System.Drawing.Size(75, 20);
+            this.portTextBox.TabIndex = 3;
+            // 
+            // portLabel
+            // 
+            this.portLabel.AutoSize = true;
+            this.portLabel.Location = new System.Drawing.Point(149, 9);
+            this.portLabel.Name = "portLabel";
+            this.portLabel.Size = new System.Drawing.Size(29, 13);
+            this.portLabel.TabIndex = 2;
+            this.portLabel.Text = "Port:";
+            // 
             // serverTextBox
             // 
             this.serverTextBox.Location = new System.Drawing.Point(69, 6);
             this.serverTextBox.Name = "serverTextBox";
-            this.serverTextBox.Size = new System.Drawing.Size(298, 20);
+            this.serverTextBox.Size = new System.Drawing.Size(74, 20);
             this.serverTextBox.TabIndex = 1;
             // 
             // serverLabel
@@ -80,9 +96,9 @@
             this.serverLabel.AutoSize = true;
             this.serverLabel.Location = new System.Drawing.Point(6, 9);
             this.serverLabel.Name = "serverLabel";
-            this.serverLabel.Size = new System.Drawing.Size(41, 13);
+            this.serverLabel.Size = new System.Drawing.Size(54, 13);
             this.serverLabel.TabIndex = 0;
-            this.serverLabel.Text = "Server:";
+            this.serverLabel.Text = "Server IP:";
             // 
             // tabControl
             // 
@@ -131,22 +147,6 @@
             this.cancelButton.TabIndex = 2;
             this.cancelButton.Text = "Cancel";
             this.cancelButton.UseVisualStyleBackColor = true;
-            // 
-            // portLabel
-            // 
-            this.portLabel.AutoSize = true;
-            this.portLabel.Location = new System.Drawing.Point(6, 36);
-            this.portLabel.Name = "portLabel";
-            this.portLabel.Size = new System.Drawing.Size(29, 13);
-            this.portLabel.TabIndex = 2;
-            this.portLabel.Text = "Port:";
-            // 
-            // portTextBox
-            // 
-            this.portTextBox.Location = new System.Drawing.Point(69, 33);
-            this.portTextBox.Name = "portTextBox";
-            this.portTextBox.Size = new System.Drawing.Size(75, 20);
-            this.portTextBox.TabIndex = 3;
             // 
             // OptionForm
             // 

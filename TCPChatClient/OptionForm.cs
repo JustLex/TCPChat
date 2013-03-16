@@ -18,8 +18,6 @@ namespace Chat_Client
         /// Параметры клиента.
         /// </summary>
         public static Parameters prop;
-        
-        private string oldIP;
         /// <summary>
         /// Конструктор окна настроек.
         /// </summary>
@@ -33,7 +31,6 @@ namespace Chat_Client
         private void OptionForm_Load(object sender, EventArgs e)
         {
             fillBoxes();
-            oldIP = prop.server;
         }
 
         /// <summary>
@@ -47,6 +44,9 @@ namespace Chat_Client
             {
                 int intPort = Convert.ToInt32(portTextBox.Text);
                 if (!(intPort >= 0 && intPort <= 9999)) throw new Exception("Порт должен быть целым числом от 0 до 9999");
+                
+                IPAddress tryIp;
+                if (!IPAddress.TryParse(serverTextBox.Text, out tryIp)) throw new Exception("Некорректный IP сервера");
             } 
             catch (Exception ex) {
                 MessageBox.Show(ex.Message, "MEGACHAT");
@@ -78,19 +78,10 @@ namespace Chat_Client
         private void okButton_Click(object sender, EventArgs e)
         {
             if (checkBoxes() == false) return;
+            loadParameters();
+            prop.serializeParams();
+            DialogResult = DialogResult.OK;
 
-            IPAddress tryIp;
-            if (IPAddress.TryParse(serverTextBox.Text, out tryIp))
-            {
-                loadParameters();
-                oldIP = prop.server;
-                prop.serializeParams();
-                DialogResult = DialogResult.OK;
-            }
-            else {
-                MessageBox.Show("Invalid IP address");
-                serverTextBox.Text = oldIP;
-            }
         }
     }
 }

@@ -74,12 +74,15 @@ namespace Chat_Client
 
         private void messageBox_KeyPress(object sender, KeyPressEventArgs e)
         {
+            
             if (e.KeyChar == 13)
             {
                 compileMessage();
             }
         }
-
+        /// <summary>
+        /// Подготовка и отправка сообщения.
+        /// </summary>
         private void compileMessage() {
             if (client.isClientRunning)
             {

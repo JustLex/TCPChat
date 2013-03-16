@@ -90,7 +90,7 @@
             // statusConnection
             // 
             this.statusConnection.Name = "statusConnection";
-            this.statusConnection.Size = new System.Drawing.Size(68, 17);
+            this.statusConnection.Size = new System.Drawing.Size(63, 17);
             this.statusConnection.Text = "Connected:";
             // 
             // menu
@@ -108,7 +108,7 @@
             // menuOptions
             // 
             this.menuOptions.Name = "menuOptions";
-            this.menuOptions.Size = new System.Drawing.Size(61, 20);
+            this.menuOptions.Size = new System.Drawing.Size(56, 20);
             this.menuOptions.Text = "Options";
             this.menuOptions.Click += new System.EventHandler(this.menuOptions_Click);
             // 
