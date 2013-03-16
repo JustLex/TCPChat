@@ -43,7 +43,7 @@
             // 
             // sendButton
             // 
-            this.sendButton.Location = new System.Drawing.Point(354, 292);
+            this.sendButton.Location = new System.Drawing.Point(355, 295);
             this.sendButton.Name = "sendButton";
             this.sendButton.Size = new System.Drawing.Size(92, 23);
             this.sendButton.TabIndex = 0;
@@ -66,7 +66,7 @@
             this.outText.Name = "outText";
             this.outText.ReadOnly = true;
             this.outText.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical;
-            this.outText.Size = new System.Drawing.Size(336, 261);
+            this.outText.Size = new System.Drawing.Size(435, 261);
             this.outText.TabIndex = 2;
             this.outText.Text = "";
             this.outText.WordWrap = false;
@@ -76,9 +76,9 @@
             this.stsusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripStatusLabel1,
             this.statusConnection});
-            this.stsusStrip.Location = new System.Drawing.Point(0, 319);
+            this.stsusStrip.Location = new System.Drawing.Point(0, 322);
             this.stsusStrip.Name = "stsusStrip";
-            this.stsusStrip.Size = new System.Drawing.Size(446, 22);
+            this.stsusStrip.Size = new System.Drawing.Size(459, 22);
             this.stsusStrip.TabIndex = 3;
             this.stsusStrip.Text = "statusStrip1";
             // 
@@ -101,7 +101,7 @@
             this.menuExit});
             this.menu.Location = new System.Drawing.Point(0, 0);
             this.menu.Name = "menu";
-            this.menu.Size = new System.Drawing.Size(446, 24);
+            this.menu.Size = new System.Drawing.Size(459, 24);
             this.menu.TabIndex = 4;
             this.menu.Text = "menuStrip1";
             // 
@@ -123,15 +123,18 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(446, 341);
+            this.ClientSize = new System.Drawing.Size(459, 344);
             this.Controls.Add(this.stsusStrip);
             this.Controls.Add(this.menu);
             this.Controls.Add(this.outText);
             this.Controls.Add(this.messageBox);
             this.Controls.Add(this.sendButton);
             this.MainMenuStrip = this.menu;
+            this.MinimumSize = new System.Drawing.Size(200, 200);
             this.Name = "MainForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "MEGACHAT";
+            this.SizeChanged += new System.EventHandler(this.MainForm_SizeChanged);
             this.stsusStrip.ResumeLayout(false);
             this.stsusStrip.PerformLayout();
             this.menu.ResumeLayout(false);

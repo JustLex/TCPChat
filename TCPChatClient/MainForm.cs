@@ -109,5 +109,17 @@ namespace Chat_Client
         {
             this.Close();
         }
+
+        private void MainForm_SizeChanged(object sender, EventArgs e)
+        {
+            sendButton.Top = Height - 75;
+            sendButton.Left = Width - 100;
+
+            outText.Height = Height - 109;
+            outText.Width = Width - 32;
+
+            messageBox.Top = Height - 76;
+            messageBox.Width = Width - 119;
+        }
     }
 }
