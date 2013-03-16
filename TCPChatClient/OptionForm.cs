@@ -21,6 +21,7 @@ namespace Chat_Client
         {
             InitializeComponent();
             prop = param;
+            
         }
 
         private void OptionForm_Load(object sender, EventArgs e)

@@ -14,7 +14,7 @@ namespace Chat_Client
         public bool isClientRunning = false;
         private IPAddress clientIP;
         private int port;
-
+        
         public void initiateClient(string ip, int port) {
             try
             {
@@ -27,6 +27,7 @@ namespace Chat_Client
             catch {
                 isClientRunning = false;
             }
+            
         }
 
         public void sendMessage(string msg, string name){

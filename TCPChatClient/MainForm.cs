@@ -29,7 +29,7 @@ namespace Chat_Client
         {
             InitializeComponent();            
             prop = Parameters.deserializeParams();
-            tryConnection();
+            tryConnection();  
         }
 
         void tryConnection() {

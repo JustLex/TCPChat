@@ -8,7 +8,7 @@ using System.Xml.Serialization;
 
 namespace Chat_Client
 {
-    public class Parameters
+    public class Parameters 
     {
         public string server;
         public string nickname;
