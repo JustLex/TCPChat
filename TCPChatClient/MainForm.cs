@@ -20,9 +20,14 @@ namespace Chat_Client
 
         static private Client client = new Client();
         static public Parameters prop;
-        // Список потоков
+        /// <summary>
+        /// Список потоков.
+        /// </summary>
         static private List<Thread> threads = new List<Thread>();
-        // Делегат для доступа к textBox контроллам
+        /// <summary>
+        /// Делегат для доступа к textBox контроллам
+        /// </summary>
+        /// <param name="text"></param>
         delegate void Del(string text);
 
         public MainForm()
@@ -32,6 +37,9 @@ namespace Chat_Client
             tryConnection();  
         }
 
+        /// <summary>
+        /// Установка попытки соединения.
+        /// </summary>
         void tryConnection() {
             statusConnection.Text = "Connecting...";
             Thread th = new Thread(delegate() {

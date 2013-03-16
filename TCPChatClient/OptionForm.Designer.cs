@@ -33,10 +33,12 @@
             this.serverTextBox = new System.Windows.Forms.TextBox();
             this.serverLabel = new System.Windows.Forms.Label();
             this.tabControl = new System.Windows.Forms.TabControl();
-            this.cancelButton = new System.Windows.Forms.Button();
             this.personTab = new System.Windows.Forms.TabPage();
-            this.nicknameLabel = new System.Windows.Forms.Label();
             this.nicknameTextBox = new System.Windows.Forms.TextBox();
+            this.nicknameLabel = new System.Windows.Forms.Label();
+            this.cancelButton = new System.Windows.Forms.Button();
+            this.portLabel = new System.Windows.Forms.Label();
+            this.portTextBox = new System.Windows.Forms.TextBox();
             this.ServerTab.SuspendLayout();
             this.tabControl.SuspendLayout();
             this.personTab.SuspendLayout();
@@ -54,6 +56,8 @@
             // 
             // ServerTab
             // 
+            this.ServerTab.Controls.Add(this.portTextBox);
+            this.ServerTab.Controls.Add(this.portLabel);
             this.ServerTab.Controls.Add(this.serverTextBox);
             this.ServerTab.Controls.Add(this.serverLabel);
             this.ServerTab.Location = new System.Drawing.Point(4, 22);
@@ -90,16 +94,6 @@
             this.tabControl.Size = new System.Drawing.Size(382, 236);
             this.tabControl.TabIndex = 0;
             // 
-            // cancelButton
-            // 
-            this.cancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.cancelButton.Location = new System.Drawing.Point(230, 241);
-            this.cancelButton.Name = "cancelButton";
-            this.cancelButton.Size = new System.Drawing.Size(75, 23);
-            this.cancelButton.TabIndex = 2;
-            this.cancelButton.Text = "Cancel";
-            this.cancelButton.UseVisualStyleBackColor = true;
-            // 
             // personTab
             // 
             this.personTab.Controls.Add(this.nicknameTextBox);
@@ -112,6 +106,13 @@
             this.personTab.Text = "Personalization";
             this.personTab.UseVisualStyleBackColor = true;
             // 
+            // nicknameTextBox
+            // 
+            this.nicknameTextBox.Location = new System.Drawing.Point(69, 6);
+            this.nicknameTextBox.Name = "nicknameTextBox";
+            this.nicknameTextBox.Size = new System.Drawing.Size(298, 20);
+            this.nicknameTextBox.TabIndex = 1;
+            // 
             // nicknameLabel
             // 
             this.nicknameLabel.AutoSize = true;
@@ -121,12 +122,31 @@
             this.nicknameLabel.TabIndex = 0;
             this.nicknameLabel.Text = "Nickname:";
             // 
-            // nicknameTextBox
+            // cancelButton
             // 
-            this.nicknameTextBox.Location = new System.Drawing.Point(69, 6);
-            this.nicknameTextBox.Name = "nicknameTextBox";
-            this.nicknameTextBox.Size = new System.Drawing.Size(298, 20);
-            this.nicknameTextBox.TabIndex = 1;
+            this.cancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.cancelButton.Location = new System.Drawing.Point(230, 241);
+            this.cancelButton.Name = "cancelButton";
+            this.cancelButton.Size = new System.Drawing.Size(75, 23);
+            this.cancelButton.TabIndex = 2;
+            this.cancelButton.Text = "Cancel";
+            this.cancelButton.UseVisualStyleBackColor = true;
+            // 
+            // portLabel
+            // 
+            this.portLabel.AutoSize = true;
+            this.portLabel.Location = new System.Drawing.Point(6, 36);
+            this.portLabel.Name = "portLabel";
+            this.portLabel.Size = new System.Drawing.Size(29, 13);
+            this.portLabel.TabIndex = 2;
+            this.portLabel.Text = "Port:";
+            // 
+            // portTextBox
+            // 
+            this.portTextBox.Location = new System.Drawing.Point(69, 33);
+            this.portTextBox.Name = "portTextBox";
+            this.portTextBox.Size = new System.Drawing.Size(75, 20);
+            this.portTextBox.TabIndex = 3;
             // 
             // OptionForm
             // 
@@ -166,5 +186,7 @@
         private System.Windows.Forms.TabPage personTab;
         private System.Windows.Forms.TextBox nicknameTextBox;
         private System.Windows.Forms.Label nicknameLabel;
+        private System.Windows.Forms.TextBox portTextBox;
+        private System.Windows.Forms.Label portLabel;
     }
 }
