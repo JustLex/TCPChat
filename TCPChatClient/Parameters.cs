@@ -25,6 +25,14 @@ namespace Chat_Client
         /// Порт передачи данных. 
         /// </summary>
         public int port;
+        /// <summary>
+        /// Включение/выключение шифровки сообщений.
+        /// </summary>
+        public bool encrypt;
+        /// <summary>
+        /// Путь к файлу-ключу.
+        /// </summary>
+        public string keyPath;
 
         /// <summary>
         /// Конструктор по умолчанию, задающий стандартные значения полей.
@@ -33,6 +41,7 @@ namespace Chat_Client
             this.server = "127.0.0.1";
             this.nickname = "Player";
             this.port = 6667;
+            this.encrypt = false;
         }
         /// <summary>
         /// Десериализация параметров из XML файла "properties.cfg". 

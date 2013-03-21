@@ -32,7 +32,7 @@ namespace Chat_Client
         /// <summary>
         /// Индикатор зашифрованности сообщения.
         /// </summary>
-        private bool isEncrypted;
+        public bool isEncrypted;
 
         /// <summary>
         /// Конструктор получающий byte[]. Используется для десериализации.
@@ -51,6 +51,8 @@ namespace Chat_Client
             _data = tmp._data;
             _owner = tmp._owner;
             _time = tmp._time;
+            isEncrypted = tmp.isEncrypted;
+            
         }
 
         /// <summary>
@@ -82,18 +84,56 @@ namespace Chat_Client
         /// <summary>
         /// Преобразовывает поле сообщения в зашифрованное по ключу.
         /// </summary>
-        /// <param name="key">Ключ шифрования.</param>
-        public void encrypt(int key)
+        /// <param name="key">Путь к файлу-ключу шифрования.</param>
+        public void encrypt(string keyPath)
         {
+            int A = 0;
+            int B = 0;
+            int controlNumber = 0;
+            string encryptedMsg = "";
+            for (int i = 0; i < keyPath.Length; i++) A += keyPath[i];
+            for (int i = 0; i < _owner.Length; i++) B += _owner[i];
 
+            controlNumber = _time.Millisecond * A + _time.Second * B;
+
+            for (int i = 0; i < _data.Length; i++)
+            {
+                int currentNumber = _data[(i + controlNumber) % _data.Length] + keyPath[(i * A) % keyPath.Length] + _owner[(i * B) % _owner.Length];
+                encryptedMsg += Convert.ToChar(currentNumber);
+            }
+
+            _data = encryptedMsg;
+            this.isEncrypted = true;
         }
         /// <summary>
         /// Преобразовывает поле сообщения в рашифрованное по ключу.
         /// </summary>
-        /// <param name="key">Ключ шифрования.</param>
-        public void decrypt(int key)
+        /// <param name="key">Путь к файлу-ключу шифрования.</param>
+        public void decrypt(string keyPath)
         {
+            int A = 0;
+            int B = 0;
+            int controlNumber = 0;
+            char[] decryptedMsg = new char[_data.Length];
+            for (int i = 0; i < keyPath.Length; i++) A += keyPath[i];
+            for (int i = 0; i < _owner.Length; i++) B += _owner[i];
 
+            controlNumber = _time.Millisecond * A + _time.Second * B;
+
+            for (int i = 0; i < _data.Length; i++)
+            {
+                int currentNumber = _data[i] - keyPath[(i * A) % keyPath.Length] - _owner[(i * B) % _owner.Length];
+                if (currentNumber < 0) currentNumber = 12;
+                decryptedMsg[(i + controlNumber) % _data.Length] = Convert.ToChar(currentNumber);
+            }
+
+            string ret = "";
+            for (int i = 0; i < _data.Length; i++)
+            {
+                ret += decryptedMsg[i];
+            }
+            _data = ret;
+            isEncrypted = false;
         }
         /// <summary>
         /// Возвращает форматированное сообщения в виде "[Дата] Отправитель : Сообщение".

@@ -57,8 +57,9 @@ namespace Chat_Client
             {
                 while (client.isClientRunning)
                 {
-                    string data = client.getMessage();
-                    outText.Invoke(new Del((s) => outText.Text += s), data);
+                    Message data = client.getMessage();
+                    if (data.isEncrypted == true) data.decrypt(prop.keyPath);
+                    outText.Invoke(new Del((s) => outText.Text += s), data.make());
                     outText.Invoke(new Del((s) => outText.Text += s), Environment.NewLine);
                 }
             });
@@ -86,7 +87,9 @@ namespace Chat_Client
         private void compileMessage() {
             if (client.isClientRunning)
             {
-                client.sendMessage(messageBox.Text, prop.nickname);
+                Message toSend = new Message(messageBox.Text, prop.nickname, DateTime.Now);
+                if (prop.encrypt == true) toSend.encrypt(prop.keyPath);
+                client.sendMessage(toSend.serialize());
                 messageBox.Clear();
             }
         } 

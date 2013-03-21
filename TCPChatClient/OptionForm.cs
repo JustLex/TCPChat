@@ -31,6 +31,12 @@ namespace Chat_Client
         private void OptionForm_Load(object sender, EventArgs e)
         {
             fillBoxes();
+            if (encryptCheckBox.Checked == false)
+            {
+                keyTextBox.Enabled = false;
+                keyTextBox.BackColor = Color.LightGray;
+                keyTextBox.Text = "";
+            }
         }
 
         /// <summary>
@@ -63,6 +69,9 @@ namespace Chat_Client
             serverTextBox.Text = prop.server;
             nicknameTextBox.Text = prop.nickname;
             portTextBox.Text = Convert.ToString(prop.port);
+            encryptCheckBox.Checked = prop.encrypt;
+            keyTextBox.Text = prop.keyPath;
+
         }
 
         /// <summary>
@@ -73,6 +82,8 @@ namespace Chat_Client
             prop.server = serverTextBox.Text;
             prop.nickname = nicknameTextBox.Text;
             prop.port = Convert.ToInt32(portTextBox.Text);
+            prop.encrypt = encryptCheckBox.Checked;
+            prop.keyPath = keyTextBox.Text;
         }
 
         private void okButton_Click(object sender, EventArgs e)
@@ -83,5 +94,37 @@ namespace Chat_Client
             DialogResult = DialogResult.OK;
 
         }
+
+        private void keyTextBox_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog openFile = new OpenFileDialog();
+
+            openFile.InitialDirectory = "c:\\";
+            openFile.Filter = "txt files (*.txt)|*.txt|All files (*.*)|*.*";
+            openFile.FilterIndex = 2;
+            openFile.RestoreDirectory = true;
+
+            if (openFile.ShowDialog() == DialogResult.OK)
+            {
+                keyTextBox.Text = openFile.FileName;
+            }
+        }
+
+        private void encryptCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            if (encryptCheckBox.Checked == false)
+            {
+                keyTextBox.Enabled = false;
+                keyTextBox.BackColor = Color.LightGray;
+                keyTextBox.Text = "";
+            }
+            if (encryptCheckBox.Checked == true)
+            {
+                keyTextBox.Enabled = true;
+                keyTextBox.BackColor = Color.White;
+            }
+        }
+
+
     }
 }

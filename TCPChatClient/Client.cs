@@ -40,8 +40,21 @@ namespace Chat_Client
             }
             catch { }
         }
+        /// <summary>
+        /// Посылает сообщение в виде байтового массива.
+        /// </summary>
+        /// <param name="msg">Сообщение.</param>
+        public void sendMessage(byte[] msg)
+        {
+            try
+            {
+                clientSocket.Send(msg);
+            }
+            catch { }
+        }
 
-        public string getMessage() {
+
+        public string getString() {
             try
             {
                 byte[] bytes = new byte[1024];
@@ -50,6 +63,20 @@ namespace Chat_Client
                 {
                     string data = Encoding.UTF8.GetString(bytes);
                     return data;
+                }
+            }
+            catch { }
+            return null;
+        }
+
+        public Message getMessage() {
+            try
+            {
+                byte[] bytes = new byte[1024];
+                clientSocket.Receive(bytes);
+                if (bytes.Length != 0)
+                {
+                    return new Message(bytes);
                 }
             }
             catch { }
